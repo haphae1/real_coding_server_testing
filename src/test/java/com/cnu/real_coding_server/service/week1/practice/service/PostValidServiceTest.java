@@ -22,11 +22,33 @@ public class PostValidServiceTest {
     @Test
     void testValidPostIncludeSlang() {
         // given 시나리오
-        String testTitle = "비속어가 섞인 제목";
-        String testContent = "비속어가 섞인 욕";
-        List<String> slangList = List.of("비속어", "비속어2");
+        String testTitle = "비속어0가 섞인 제목";
+        String testContent = "비속어1가 섞인 욕";
+        List<String> slangList = List.of("비속어0", "비속어1");
 
         boolean validPost = postValidService.isSlangInclude(slangList, testTitle, testContent);
+        // then 검증
+        assertThat(validPost).isEqualTo(true);
+    }
+    @DisplayName("post 제목에 비속어가 있나 테스트")
+    @Test
+    void testValidPostTitleIncludeSlang() {
+        // given 시나리오
+        String testTitle = "비속어가 섞인 제목";
+        List<String> slangList = List.of("비속어", "비속어2");
+
+        boolean validPost = postValidService.isSlangTitleInclude(slangList, testTitle);
+        // then 검증
+        assertThat(validPost).isEqualTo(true);
+    }
+    @DisplayName("post 본문에 비속어가 있나 테스트")
+    @Test
+    void testValidPostContentIncludeSlang() {
+        // given 시나리오
+        String testContent = "비속어3가 섞인 욕";
+        List<String> slangList = List.of("비속어3", "비속어1");
+
+        boolean validPost = postValidService.isSlangContentInclude(slangList, testContent);
         // then 검증
         assertThat(validPost).isEqualTo(true);
     }
